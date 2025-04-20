@@ -1,0 +1,6 @@
+jsr.json
+bun.lock
+test.ts
+build.ts
+*.test.ts
+.tmp
