@@ -130,12 +130,13 @@ const descriptionPackageJsonKeys: string[] = [
 const checkJsonKeys: string[] = ["version", "type", "dependencies"];
 
 /**
- *
+ * check fields of `checkJsonKeys` between raw package.json (in current dir) and jsr package.json,
+ * stop the process if there fields have differents.
  */
 export async function checkFields(
   rawPackageDir: string,
   jsrPackageDir: string
-) {
+): Promise<{ ok: boolean; message?: string }> {
   const { jsrJson, baseJson } = await getJsonOfRawAndJsr(
     rawPackageDir,
     jsrPackageDir
