@@ -1,6 +1,6 @@
 {
   "name": "jsr2npm",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "a cli/lib for mirror jsr package to npm",
   "license": "MIT",
   "author": {

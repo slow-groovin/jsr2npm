@@ -188,7 +188,7 @@ export async function checkFields(
   }
 
   for (const key of checkJsonKeys) {
-    if (key === "denpendencies") {
+    if (key === "dependencies") {
       const checkResult = checkDependencies(
         baseJson["dependencies"],
         jsrJson["dependencies"]
