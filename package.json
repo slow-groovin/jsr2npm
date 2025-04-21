@@ -17,7 +17,9 @@
   "type": "module",
   "private": false,
   "exports": "./src/index.ts",
-  "bin": "./src/cli.js",
+  "bin": {
+    "jsr2npm": "./src/cli.js"
+  },
   "scripts": {
     "dev": " bun run src/cli.ts @slow-groovin/jsr2npm -a bin --log-level debug --dry-run  ",
     "test": "bun test",
