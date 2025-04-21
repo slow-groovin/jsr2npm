@@ -1,5 +1,10 @@
 # jsr2npm
 
+[![JSR](https://jsr.io/badges/@slow-groovin/jsr2npm)](https://jsr.io/@slow-groovin/jsr2npm)
+[![JSR](https://jsr.io/badges/@slow-groovin/jsr2npm/score)](https://jsr.io/@slow-groovin/jsr2npm)
+![npm](https://img.shields.io/npm/v/jsr2npm)
+![NPM Downloads](https://img.shields.io/npm/d18m/jsr2npm)
+
 A CLI tool to mirror your [JSR](https://jsr.io) packages to npm
 
 ## Who need this?
