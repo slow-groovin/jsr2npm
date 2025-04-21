@@ -12,10 +12,12 @@ Implemention are inspired by [mirror-jsr-to-npm](https://github.com/ryoppippi/mi
 ## cli usage
 
 ```sh
-npx jsr2npm  -h
-npx jsr2npm  @slow-groovin/moonshot-web-ai-provider
-npx jsr2npm  @slow-groovin/moonshot-web-ai-provider --dry-run
-npx jsr2npm  @slow-groovin/moonshot-web-ai-provider -i --skip-check --log-level debug
+npx jsr2npm  @slow-groovin/jsr2npm                   # mirror with default settings
+npx jsr2npm  @slow-groovin/jsr2npm --dry-run         # generate the directory but do not publish
+npx jsr2npm  @slow-groovin/jsr2npm -i                # do not use packages.json of current directory to overwrite description fields in new packages.json
+npx jsr2npm  @slow-groovin/jsr2npm --skip-check      # do not prevent publish when there are differences in fields [version, type, dependencies].
+npx jsr2npm  @slow-groovin/jsr2npm --log-level debug # see more logs
+npx jsr2npm  @slow-groovin/jsr2npm -a bin private    # specify addtional fields 'bin','private' to be overwritten
 ```
 
 ## lib usage
@@ -27,7 +29,7 @@ import {
   getAdaptedExtract,
   getJsonOfRawAndJsr,
 } from "jsr2npm";
-const packageName = "@<scope>/<name>@0.3.4";
+const packageName = "@<scope>/<name>@0.3.5";
 const dir = "./tmp";
 // 1. download jsr package to dir
 await downloadTarball(packageName, dir);
