@@ -10,7 +10,7 @@ import shell from "shelljs";
 import { mkdir, writeFile } from "node:fs/promises";
 
 /**
- * whole cli process
+ * CLI execute entry function
  */
 export async function mirrorPackage(packageName: string, options: Options) {
   consola.level = LogLevels[options.logLevel as LogType];

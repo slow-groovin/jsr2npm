@@ -1,11 +1,16 @@
 #!/usr/bin/env node
+/**
+ * CLI entrypoint
+ * > include this in `jsr.json` to make it compiled.
+ * @module
+ */
 import { program } from "commander";
 import { mirrorPackage } from "./lib";
 
 program
   .name("jsr2npm")
   .description("A CLI tool to mirror JSR packages to npm")
-  .version("0.3.5", "-v, --vers", "output the current version");
+  .version("0.3.6", "-v, --vers", "output the current version");
 
 program
   .argument("<packageName>", "The package name(in jsr registry) to mirror")

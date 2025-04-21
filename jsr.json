@@ -1,6 +1,6 @@
 {
   "name": "@slow-groovin/jsr2npm",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "exports": {
     ".": "./src/index.ts",
     "./cli": "./src/cli.ts"
