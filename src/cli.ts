@@ -29,6 +29,7 @@ program
     "Skip the check of fields(version, type, dependencies) to stop publish if not equal",
     false
   )
+  .option("--clear", "post clear", false)
   .option("--dry-run", "Mirror but do not publish", false)
   .option(
     "--log-level <logLevel>",

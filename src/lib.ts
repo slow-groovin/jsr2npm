@@ -7,7 +7,7 @@ import {
 } from "./util";
 import type { Options } from "./types";
 import shell from "shelljs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, writeFile } from "node:fs/promises";
 
 /**
  * CLI execute entry function
@@ -21,7 +21,10 @@ export async function mirrorPackage(packageName: string, options: Options) {
     throw new Error("setting dir incorrectly: " + options.dir);
   }
   // 1. download jsr package to dir
-  await downloadTarball(packageName, options.dir);
+  const { extractDirPath, tarballFilePath } = await downloadTarball(
+    packageName,
+    options.dir
+  );
 
   // 2. check fields before
   if (!options.skipCheck) {
@@ -45,14 +48,32 @@ export async function mirrorPackage(packageName: string, options: Options) {
   } else {
     consola.success("success with dry-run(not published)", directory);
   }
+
+  //5. clear
+  if (options.clear) {
+    consola.debug("clear tarball file:", tarballFilePath);
+    shell.rm(tarballFilePath);
+    consola.debug("clear extract directory:", extractDirPath);
+    shell.rm("-r", extractDirPath);
+
+    const files = await readdir(options.dir);
+    if (files && files.length === 0) {
+      consola.debug("clear dir:", options.dir, "(it's empty)");
+      shell.rm("-r", options.dir);
+    }
+  }
 }
 
 /**
  * download the tarball of jsr packgeName `[@scope]/[package-name][@version?]`
  * @param packageName
  * @param dir target directory
+ * @returns tarball file path
  */
-export async function downloadTarball(packageName: string, dir: string) {
+export async function downloadTarball(
+  packageName: string,
+  dir: string
+): Promise<{ tarballFilePath: string; extractDirPath: string }> {
   const { name, version } = extractNameAndVersion(packageName);
 
   // 1. download jsr package to dir
@@ -61,6 +82,8 @@ export async function downloadTarball(packageName: string, dir: string) {
   const url = await fetchTarballDownloadUrl(name, version);
 
   const fileName = url.split("/").slice(-2).join("-");
+  const targetFile = `${dir}/${fileName}`;
+
   consola.info(`download tarball for ${fileName}, url: ${url}`);
   try {
     const response = await fetch(url);
@@ -68,7 +91,6 @@ export async function downloadTarball(packageName: string, dir: string) {
       throw new Error(`Failed to fetch package: ${response.statusText}`);
     }
 
-    const targetFile = `${dir}/${fileName}`;
     if (!response.body) {
       throw new Error("response body is null.");
     }
@@ -82,11 +104,9 @@ export async function downloadTarball(packageName: string, dir: string) {
   }
 
   try {
-    const targetFile = `${dir}/${fileName}`;
-
     const extract = await getAdaptedExtract();
     //pre clean package dir
-    shell.rm("-rf", `${dir}/package/**`);
+    shell.rm("-rf", `${dir}/package`);
 
     await extract({ file: targetFile, cwd: dir });
     consola.success(`untar ${targetFile}`);
@@ -94,6 +114,7 @@ export async function downloadTarball(packageName: string, dir: string) {
     consola.error("Error untar the tarball", error);
     throw error;
   }
+  return { tarballFilePath: targetFile, extractDirPath: `${dir}/package` };
 }
 
 /**

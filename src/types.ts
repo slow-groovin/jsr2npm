@@ -9,4 +9,5 @@ export type Options = {
   ignoreCurrent: boolean;
   addtionalFields?: string[];
   skipCheck: boolean;
+  clear: boolean;
 };
