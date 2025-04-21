@@ -27,7 +27,7 @@ import {
   getAdaptedExtract,
   getJsonOfRawAndJsr,
 } from "jsr2npm";
-const packageName = "@<scope>/<name>@0.3.3";
+const packageName = "@<scope>/<name>@0.3.4";
 const dir = "./tmp";
 // 1. download jsr package to dir
 await downloadTarball(packageName, dir);

@@ -1,6 +1,6 @@
 {
   "name": "jsr2npm",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "a cli/lib for mirror jsr package to npm",
   "author": {
     "name": "slow-groovin",
@@ -18,10 +18,12 @@
   "exports": "./src/index.ts",
   "bin": "./src/cli.js",
   "scripts": {
-    "dev": " bun run src/index.ts @slow-groovin/jsr2npm -a bin --log-level debug --skip-check --dry-run",
+    "dev": " bun run src/cli.ts @slow-groovin/jsr2npm -a bin --log-level debug --dry-run  ",
     "test": "bun test",
     "build": "bun run build.ts",
-    "prepublish": "bun test && bun bun build"
+    "prepublish": "bun test",
+    "publish": "jsr publish",
+    "mirror": "bunx jsr2npm -a bin --log-level debug"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -5,7 +5,7 @@ import { mirrorPackage } from "./lib";
 program
   .name("jsr2npm")
   .description("A CLI tool to mirror JSR packages to npm")
-  .version("0.3.3", "-v, --vers", "output the current version");
+  .version("0.3.4", "-v, --vers", "output the current version");
 
 program
   .argument("<packageName>", "The package name(in jsr registry) to mirror")

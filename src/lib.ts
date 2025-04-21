@@ -17,6 +17,9 @@ export async function mirrorPackage(packageName: string, options: Options) {
   consola.info(`Mirroring package: ${packageName}`);
   consola.debug(`Effictive Options: ${JSON.stringify(options, null, 2)}`);
 
+  if (!options.dir || options.dir === "/") {
+    throw new Error("setting dir incorrectly: " + options.dir);
+  }
   // 1. download jsr package to dir
   await downloadTarball(packageName, options.dir);
 
@@ -82,6 +85,8 @@ export async function downloadTarball(packageName: string, dir: string) {
     const targetFile = `${dir}/${fileName}`;
 
     const extract = await getAdaptedExtract();
+    //pre clean package dir
+    shell.rm("-rf", `${dir}/package/**`);
 
     await extract({ file: targetFile, cwd: dir });
     consola.success(`untar ${targetFile}`);
