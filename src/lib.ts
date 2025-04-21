@@ -1,5 +1,6 @@
 import consola, { LogLevels, type LogType } from "consola";
 import {
+  checkDependencies,
   extractNameAndVersion,
   fetchTarballDownloadUrl,
   getAdaptedExtract,
@@ -187,6 +188,16 @@ export async function checkFields(
   }
 
   for (const key of checkJsonKeys) {
+    if (key === "denpendencies") {
+      const checkResult = checkDependencies(
+        baseJson["dependencies"],
+        jsrJson["dependencies"]
+      );
+      if (!checkResult.ok) {
+        return checkResult;
+      }
+      continue;
+    }
     const cmpOfBase = JSON.stringify(baseJson[key]);
     const cmpOfJsr = JSON.stringify(jsrJson[key]);
 

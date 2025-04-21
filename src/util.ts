@@ -85,3 +85,35 @@ export async function getJsonOfRawAndJsr(
   const jsrJson = JSON.parse((await readFile(jsrJsonPath)).toString()) as PackageJson; // prettier-ignore
   return { baseJson, jsrJson };
 }
+
+export function checkDependencies(
+  a: PackageJson["dependencies"],
+  b: PackageJson["dependencies"]
+): { message?: string; ok: boolean } {
+  if (!a || !b) {
+    return { message: "One or both dependencies are undefined", ok: false };
+  }
+
+  const diffs: string[] = [];
+  const allKeys = new Set([...Object.keys(a), ...Object.keys(b)]);
+
+  for (const key of allKeys) {
+    if (a[key] !== b[key]) {
+      diffs.push(
+        `Key "${key}": "${a[key] || "undefined"}" !== "${
+          b[key] || "undefined"
+        }"`
+      );
+    }
+  }
+
+  if (diffs.length > 0) {
+    return {
+      message: `check failed: dependencies are not equal found:
+${diffs.join("\n")}`,
+      ok: false,
+    };
+  }
+
+  return { ok: true };
+}
