@@ -31,7 +31,7 @@ export async function mirrorPackage(packageName: string, options: Options) {
 
   // 3. overwrite description fields
   if (!options.ignoreCurrent) {
-    await overwriteDescriptFields("./", options.dir);
+    await overwriteDescriptFields("./", options.dir, options.addtionalFields);
   }
 
   // 4. publish
@@ -98,7 +98,8 @@ export async function downloadTarball(packageName: string, dir: string) {
  */
 export async function overwriteDescriptFields(
   rawPackageDir: string,
-  jsrPackageDir: string
+  jsrPackageDir: string,
+  addtionalFields?: string[]
 ) {
   const jsrJsonPath = `${jsrPackageDir}/package/package.json`;
   const { jsrJson, baseJson } = await getJsonOfRawAndJsr(
@@ -110,6 +111,14 @@ export async function overwriteDescriptFields(
     if (baseJson[key]) {
       jsrJson[key] = baseJson[key];
       changedKeys.push(key);
+    }
+  }
+  if (addtionalFields) {
+    for (const key of addtionalFields) {
+      if (baseJson[key]) {
+        jsrJson[key] = baseJson[key];
+        changedKeys.push(key);
+      }
     }
   }
   await writeFile(jsrJsonPath, JSON.stringify(jsrJson, null, 2));

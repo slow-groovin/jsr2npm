@@ -4,5 +4,6 @@ export type Options = {
 
   dir: string;
   ignoreCurrent: boolean;
+  addtionalFields?: string[];
   skipCheck: boolean;
 };

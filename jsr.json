@@ -1,12 +1,12 @@
 {
-  "name": "@slow-groovin/jsr-to-npm",
-  "version": "0.3.1",
+  "name": "@slow-groovin/jsr2npm",
+  "version": "0.3.3",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./cli": "./src/cli.ts"
   },
   "license": "MIT",
   "publish": {
-    "include": ["dist"],
-    "exclude": ["*.test.ts", "build.ts"]
+    "exclude": ["**/*.test.ts", "build.ts", "bun.lock"]
   }
 }

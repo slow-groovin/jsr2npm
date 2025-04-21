@@ -1,12 +1,12 @@
 {
-  "name": "jsr-to-npm",
-  "version": "0.3.1",
-  "description": "a cli/lib for mirror jsr package to npm locally",
+  "name": "jsr2npm",
+  "version": "0.3.3",
+  "description": "a cli/lib for mirror jsr package to npm",
   "author": {
     "name": "slow-groovin",
     "url": "https://github.com/slow-groovin"
   },
-  "homepage": "https://github.com/slow-groovin/jsr-to-npm",
+  "homepage": "https://github.com/slow-groovin/jsr2npm",
   "keywords": [
     "jsr",
     "npm",
@@ -14,30 +14,26 @@
     "mirror"
   ],
   "type": "module",
-  "private": true,
-  "exports": "./src/lib.ts",
-  "bin": "./dist/cli.js",
+  "private": false,
+  "exports": "./src/index.ts",
+  "bin": "./src/cli.js",
   "scripts": {
-    "dev": " bun run src/index.ts @slow-groovin/moonshot-web-ai-provider --log-level debug --skip-check --dry-run",
+    "dev": " bun run src/index.ts @slow-groovin/jsr2npm -a bin --log-level debug --skip-check --dry-run",
     "test": "bun test",
     "build": "bun run build.ts",
     "prepublish": "bun test && bun bun build"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.14.1",
+    "@types/shelljs": "^0.8.15"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/shelljs": "^0.8.15",
     "commander": "^13.1.0",
     "consola": "^3.4.2",
-    "fetch-pkg": "^1.0.0",
-    "nrd": "^1.1.3",
-    "publint": "^0.3.12",
-    "semver": "^7.7.1",
     "shelljs": "^0.9.2",
     "tar": "^7.4.3",
     "type-fest": "^4.40.0"
