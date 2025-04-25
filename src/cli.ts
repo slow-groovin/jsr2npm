@@ -6,6 +6,7 @@
  */
 import { program } from "commander";
 import { mirrorPackage } from "./lib";
+import consola from "consola";
 
 program
   .name("jsr2npm")
@@ -40,7 +41,7 @@ program
     try {
       await mirrorPackage(packageName, options);
     } catch (error) {
-      console.error("Failed to mirror package:", error);
+      consola.error("Failed to mirror package:", error);
       process.exit(1);
     }
   });

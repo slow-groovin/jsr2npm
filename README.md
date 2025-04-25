@@ -5,7 +5,7 @@
 ![npm](https://img.shields.io/npm/v/jsr2npm)
 ![NPM Downloads](https://img.shields.io/npm/d18m/jsr2npm)
 
-A CLI tool to mirror your [JSR](https://jsr.io) packages to npm
+a CLI tool to clone/duplicate/mirror your package from [jsr.io](<(https://jsr.io)>) package to npm registry
 
 ## Who need this?
 
@@ -17,6 +17,8 @@ Implemention are inspired by [mirror-jsr-to-npm](https://github.com/ryoppippi/mi
 ## cli usage
 
 ```bash
+cd <local-repo-dir>                                  # mirror should run in repository directory
+
 npx jsr2npm  @slow-groovin/jsr2npm                   # mirror with default settings
 npx jsr2npm  @slow-groovin/jsr2npm --dry-run         # generate the directory but do not publish
 npx jsr2npm  @slow-groovin/jsr2npm -i                # do not use packages.json of current directory to overwrite description fields in new packages.json

@@ -21,6 +21,10 @@ export async function mirrorPackage(packageName: string, options: Options) {
   if (!options.dir || options.dir === "/") {
     throw new Error("setting dir incorrectly: " + options.dir);
   }
+
+  // detect pacakge.json in cwd
+  await ensurePackageJsonExists()
+
   // 1. download jsr package to dir
   const { extractDirPath, tarballFilePath } = await downloadTarball(
     packageName,
@@ -63,6 +67,17 @@ export async function mirrorPackage(packageName: string, options: Options) {
       shell.rm("-r", options.dir);
     }
   }
+}
+
+/**
+ * detectIf cwd has a package.json, output hint if not
+ */
+export async function ensurePackageJsonExists() {
+  const files = await readdir("./");
+  if (!files.includes("package.json")) {
+    throw new Error(`Current directory doesn't contain a package.json file. Please check if you are in the correct directory.`)
+  }
+  return files;
 }
 
 /**

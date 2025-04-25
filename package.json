@@ -1,7 +1,7 @@
 {
   "name": "jsr2npm",
-  "version": "0.3.10",
-  "description": "a cli/lib for mirror jsr package to npm",
+  "version": "0.3.11",
+  "description": "a cli/lib to clone/duplicate/mirror your package from jsr.io package to npm registry",
   "license": "MIT",
   "author": {
     "name": "slow-groovin",
