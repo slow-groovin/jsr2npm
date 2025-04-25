@@ -70,14 +70,13 @@ export async function mirrorPackage(packageName: string, options: Options) {
 }
 
 /**
- * detectIf cwd has a package.json, output hint if not
+ * detect if cwd has a package.json
  */
-export async function ensurePackageJsonExists() {
+export async function ensurePackageJsonExists(): Promise<void> {
   const files = await readdir("./");
   if (!files.includes("package.json")) {
     throw new Error(`Current directory doesn't contain a package.json file. Please check if you are in the correct directory.`)
   }
-  return files;
 }
 
 /**
